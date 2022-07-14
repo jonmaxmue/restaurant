@@ -1,0 +1,69 @@
+// BOOTSTRAP CUSTOMISATION
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;700;800;900&display=swap')
+
+// Overwrite enables
+$enable-responsive-font-sizes: true
+
+// Overwrite spaces (use own font spacings in type.sass)
+$headings-margin-bottom: 0
+
+// Overwrite colors
+$light: #FFFFFF
+$blue: #021A3C
+$red: #BE8E7C
+$cyan: #2080E0
+$yellow: #BBBE7C
+$green: #48A077
+
+$primary: #104A75
+$dark: #000000
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+
+$spacer: 1rem
+$spacers: ()
+$spacers: map-merge((0: 0,1: ($spacer * .25),2: ($spacer * .5),3: $spacer,4: ($spacer * 1.5),5: ($spacer * 3),6: ($spacer * 6), 7: ($spacer * 8) ), $spacers)
+
+// Add color variables
+
+// Add colors to maps
+//$colors: ("blue-light": $blue-light)
+
+// Override container widths
+$container-max-widths: (sm: 650px, md: 1100px, lg: 1250px, xl: 1498px)
+$grid-breakpoints: (xs: 0, sm: 650px, md: 920px, lg: 1250px, xl: 1498px)
+
+$font-family-base: 'Poppins', sans-serif
+$font-weight-normal: 300
+$headings-font-weight: 700
+
+$border-radius: 50px
+$btn-border-radius-lg: 50px
+
+$popover-border-radius: 40px
+$popover-body-padding-x: map-get($spacers, 4)
+$popover-body-padding-y: map-get($spacers, 3)
+$popover-header-padding-y: map-get($spacers, 3)
+$popover-header-padding-x: map-get($spacers, 4)
+
+$card-spacer-y: 1.0rem
+$card-spacer-x: 1.5rem
+
+$enable-shadows: true
+
+$modal-dialog-margin: 0
+
+$popover-bg: $yellow
+$popover-body-bg: $yellow
+$popover-arrow-color: $yellow
+
+$custom-control-indicator-size: 1.6rem
+
+$nav-tabs-border-radius: 20px
+
+$rfs-factor: 10
+$rfs-breakpoint: 800

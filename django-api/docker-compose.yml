@@ -1,0 +1,99 @@
+version: '3'
+
+services:
+
+  restaurant_djangoapp:
+    build: .
+    volumes:
+      - .:/opt/services/djangoapp/src
+      - restaurant_static_volume:/opt/services/djangoapp/src/project/static
+      - restaurant_media_volume:/opt/services/djangoapp/src/project/media
+    networks:
+      - restaurant_nginx_network
+      - restaurant_db_network
+      - restaurant_redis_network
+    depends_on:
+      - restaurant_db
+      - restaurant_redis
+    ports:
+      - 8080:8080
+      - 8001:8001
+      - 8002:8002
+      - 8000:8000
+    secrets:
+      - django_secret_key
+      - mailjet_api_mail_key
+      - mailjet_api_mail_secret
+      - postgres_passwd_restaurant_db
+
+
+  restaurant_nginx:
+    image: nginx:1.13
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - restaurant_static_volume:/opt/services/djangoapp/src/project/static
+      - restaurant_media_volume:/opt/services/djangoapp/src/project/media
+      - .docker/certbot/data/certbot/conf:/etc/letsencrypt
+      - .docker/certbot/data/certbot/www:/var/www/certbot
+      - .docker/config/log/nginx:/var/log/nginx
+    depends_on:
+      - restaurant_djangoapp
+    networks:
+      - restaurant_nginx_network
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  restaurant_db:
+    image: kartoza/postgis
+    env_file:
+      - config/db/restaurant_db_env
+    networks:
+      - restaurant_db_network
+    volumes:
+      - restaurant_database_volume:/var/lib/postgresql
+    ports:
+      - 5432:5432
+    secrets:
+      - postgres_passwd_restaurant_db
+
+  restaurant_redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - .docker/redis/data:/opt/services/djangoapp/src
+      - .docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - restaurant_redis_network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - .docker/certbot/data/certbot/conf:/etc/letsencrypt
+      - .docker/certbot/data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+networks:
+  restaurant_nginx_network:
+    driver: bridge
+  restaurant_db_network:
+    driver: bridge
+  restaurant_redis_network:
+    driver: bridge
+
+volumes:
+  restaurant_database_volume:
+  restaurant_static_volume:
+  restaurant_media_volume:
+
+secrets:
+  django_secret_key:
+    file: ../secret.api.restaurant.online/django_secret_key.txt
+  postgres_passwd_restaurant_db:
+    file: ../secret.api.restaurant.online/postgres_passwd_restaurant_db.txt
+  mailjet_api_mail_key:
+    file: ../secret.api.restaurant.online/mailjet_api_mail_key.txt
+  mailjet_api_mail_secret:
+    file: ../secret.api.restaurant.online/mailjet_api_mail_secret.txt

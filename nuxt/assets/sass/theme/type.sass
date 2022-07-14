@@ -1,0 +1,23 @@
+@each $size, $value in $font-sizes
+  .fs-#{$size}
+    +font-size($value)
+    line-height: 1.50em
+
+@each $color, $value in $audit-colors
+  .text-#{$color}
+    color: $value
+
+.font-topic
+  font-family: 'Poppins', cursive
+
+.light
+  font-weight: 200
+
+.regular
+  font-weight: 400
+
+.bold
+  font-weight: 500
+
+.bolder
+  font-weight: 900

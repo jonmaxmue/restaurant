@@ -1,0 +1,1 @@
+from core.permissions.ProfilePermission import ProfilePermission

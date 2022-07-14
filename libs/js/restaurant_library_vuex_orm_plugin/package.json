@@ -1,0 +1,39 @@
+{
+    "name": "@restaurant-dev/vuex-orm",
+    "version": "1.0.9",
+    "description": "Object Relation Mapper for vuex with json-api format",
+    "main": "dist/index.js",
+    "source": "src/index.js",
+    "scripts": {
+        "build": "npx babel src --out-dir dist",
+        "start": "npx babel src --watch --out-dir dist"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jonmaxmue/restaurant_library_vuex_orm_plugin.git"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.12.1",
+        "@babel/core": "^7.14.3",
+        "@babel/preset-env": "^7.14.2"
+    },
+    "keywords": [
+        "ORM",
+        "javascript",
+        "typescript"
+    ],
+    "author": "Jonas Müller <ref@jonmaxmue.de>",
+    "bugs": {
+        "url": "https://github.com/jonmaxmue/restaurant_library_vuex_orm_plugin/issues"
+    },
+    "homepage": "https://github.com/jonmaxmue/restaurant_library_vuex_orm_plugin#readme",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "dependencies": {
+        "@lunity-dev/vuex-orm-json-api": "^1.0.3",
+        "@vuex-orm/core": "^0.36.4",
+        "js-cookie": "^2.2.1"
+    }
+}

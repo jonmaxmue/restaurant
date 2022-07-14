@@ -1,0 +1,1 @@
+from core.tests import test_http_authentication

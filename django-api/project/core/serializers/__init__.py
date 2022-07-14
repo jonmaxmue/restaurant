@@ -1,0 +1,5 @@
+from core.serializers.AddressSerializer import AddressSerializer
+from core.serializers.AuthorizationSerializer import AuthorizationSerializer
+from core.serializers.UserSerializer import UserSerializer
+
+from core.serializers.ProfileSerializer import ProfileSerializer

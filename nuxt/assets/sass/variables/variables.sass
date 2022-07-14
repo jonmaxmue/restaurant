@@ -1,0 +1,22 @@
+@import 'node_modules/bootstrap/scss/functions'
+@import 'node_modules/bootstrap/scss/_variables'
+@import 'node_modules/bootstrap/scss/mixins/breakpoints'
+@import 'node_modules/bootstrap/scss/mixins/border-radius'
+@import 'node_modules/bootstrap/scss/mixins/box-shadow'
+
+// lunity VARIABLES
+
+// COLORS AREAS
+$color-background: #EEEEEE//#F7F7F7
+
+// SIZES: FONTS
+$font-sizes: ("1": 0.6rem, "2": 0.9rem, "3": 1.3rem, "4": 1.5rem, "5": 1.65rem, "6": 1.9rem, "7": 2.8rem, "8": 4.0rem, "9": 4.0rem, "10": 6.0rem)
+
+$approved: $green
+$unset: $yellow
+$declined: $red
+
+$audit-colors: ()
+$audit-colors: map-merge(("declined": $declined,"unset": $unset,"approved": $approved,),$audit-colors)
+
+$border-radius-sm: 30px

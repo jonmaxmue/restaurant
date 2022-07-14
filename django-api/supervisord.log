@@ -1,0 +1,312 @@
+2022-01-10 23:32:45,495 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-10 23:32:45,500 INFO RPC interface 'supervisor' initialized
+2022-01-10 23:32:45,501 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-10 23:32:45,504 INFO supervisord started with pid 1
+2022-01-10 23:32:46,517 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-10 23:32:47,701 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-10 23:32:47,790 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:32:48,801 INFO spawned: 'gunicorn_wsgi' with pid 64
+2022-01-10 23:32:49,604 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:32:50,624 INFO spawned: 'gunicorn_wsgi' with pid 121
+2022-01-10 23:32:51,373 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:32:53,391 INFO spawned: 'gunicorn_wsgi' with pid 178
+2022-01-10 23:32:54,172 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:33:02,785 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-10 23:33:02,788 INFO RPC interface 'supervisor' initialized
+2022-01-10 23:33:02,789 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-10 23:33:02,793 INFO supervisord started with pid 1
+2022-01-10 23:33:03,801 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-10 23:33:04,655 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:33:05,685 INFO spawned: 'gunicorn_wsgi' with pid 64
+2022-01-10 23:33:06,519 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:33:08,535 INFO spawned: 'gunicorn_wsgi' with pid 121
+2022-01-10 23:33:09,330 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:33:12,345 INFO spawned: 'gunicorn_wsgi' with pid 178
+2022-01-10 23:33:13,145 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:33:14,152 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-01-10 23:35:27,825 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-10 23:35:28,131 INFO RPC interface 'supervisor' initialized
+2022-01-10 23:35:28,132 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-10 23:35:28,136 INFO supervisord started with pid 1
+2022-01-10 23:35:29,144 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-01-10 23:35:29,966 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:35:30,975 INFO spawned: 'gunicorn_wsgi' with pid 65
+2022-01-10 23:35:31,789 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:35:33,799 INFO spawned: 'gunicorn_wsgi' with pid 122
+2022-01-10 23:35:34,601 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:35:37,617 INFO spawned: 'gunicorn_wsgi' with pid 179
+2022-01-10 23:35:38,416 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:35:39,420 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-01-10 23:48:48,266 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-10 23:48:48,272 INFO RPC interface 'supervisor' initialized
+2022-01-10 23:48:48,273 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-10 23:48:48,276 INFO supervisord started with pid 1
+2022-01-10 23:48:49,282 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-01-10 23:48:50,488 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-10 23:48:50,802 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:48:51,813 INFO spawned: 'gunicorn_wsgi' with pid 12
+2022-01-10 23:48:52,645 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:48:53,659 INFO spawned: 'gunicorn_wsgi' with pid 16
+2022-01-10 23:48:54,433 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:48:56,447 INFO spawned: 'gunicorn_wsgi' with pid 20
+2022-01-10 23:48:57,253 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:49:00,271 INFO spawned: 'gunicorn_wsgi' with pid 24
+2022-01-10 23:49:01,047 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-01-10 23:49:02,050 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-01-10 23:55:26,936 WARN received SIGTERM indicating exit request
+2022-01-10 23:55:40,386 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-10 23:55:40,389 INFO RPC interface 'supervisor' initialized
+2022-01-10 23:55:40,389 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-10 23:55:40,392 INFO supervisord started with pid 1
+2022-01-10 23:55:41,401 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-01-10 23:55:42,574 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-11 12:29:27,871 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-11 12:29:27,877 INFO RPC interface 'supervisor' initialized
+2022-01-11 12:29:27,880 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-11 12:29:27,887 INFO supervisord started with pid 1
+2022-01-11 12:29:28,896 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-11 12:29:30,064 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-11 12:33:29,561 WARN received SIGTERM indicating exit request
+2022-01-11 12:33:29,567 INFO waiting for gunicorn_wsgi to die
+2022-01-11 12:33:29,811 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-01-11 12:45:50,354 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-11 12:45:50,358 INFO RPC interface 'supervisor' initialized
+2022-01-11 12:45:50,359 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-11 12:45:50,363 INFO supervisord started with pid 1
+2022-01-11 12:45:51,374 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-11 12:45:52,567 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-11 12:45:54,576 WARN received SIGTERM indicating exit request
+2022-01-11 12:45:54,578 INFO waiting for gunicorn_wsgi to die
+2022-01-11 12:45:54,803 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-01-11 14:08:02,213 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-11 14:08:02,217 INFO RPC interface 'supervisor' initialized
+2022-01-11 14:08:02,218 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-11 14:08:02,228 INFO supervisord started with pid 1
+2022-01-11 14:08:03,241 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-11 14:08:04,417 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-11 18:20:11,057 WARN received SIGTERM indicating exit request
+2022-01-11 18:20:11,073 INFO waiting for gunicorn_wsgi to die
+2022-01-11 18:20:11,342 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-01-12 11:51:26,202 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-12 11:51:26,212 INFO RPC interface 'supervisor' initialized
+2022-01-12 11:51:26,213 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-12 11:51:26,217 INFO supervisord started with pid 1
+2022-01-12 11:51:27,223 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-12 11:51:28,426 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-13 13:36:33,810 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-13 13:36:34,118 INFO RPC interface 'supervisor' initialized
+2022-01-13 13:36:34,119 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-13 13:36:34,129 INFO supervisord started with pid 1
+2022-01-13 13:36:35,135 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-13 13:36:36,321 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-14 13:20:31,174 WARN received SIGTERM indicating exit request
+2022-01-14 13:20:31,186 INFO waiting for gunicorn_wsgi to die
+2022-01-14 13:20:31,456 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-01-17 00:32:23,248 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-17 00:32:23,257 INFO RPC interface 'supervisor' initialized
+2022-01-17 00:32:23,259 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-17 00:32:23,263 INFO supervisord started with pid 1
+2022-01-17 00:32:24,276 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-17 00:32:25,488 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-18 13:00:32,355 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-18 13:00:32,359 INFO RPC interface 'supervisor' initialized
+2022-01-18 13:00:32,360 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-18 13:00:32,373 INFO supervisord started with pid 1
+2022-01-18 13:00:33,381 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-01-18 13:00:34,589 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-18 16:51:00,002 WARN received SIGTERM indicating exit request
+2022-01-18 16:51:00,004 INFO waiting for gunicorn_wsgi to die
+2022-01-18 16:51:00,230 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-01-18 22:03:25,606 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-01-18 22:03:25,613 INFO RPC interface 'supervisor' initialized
+2022-01-18 22:03:25,614 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-01-18 22:03:25,619 INFO supervisord started with pid 1
+2022-01-18 22:03:26,626 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-01-18 22:03:27,807 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-01-18 22:03:57,874 WARN received SIGTERM indicating exit request
+2022-01-18 22:03:57,877 INFO waiting for gunicorn_wsgi to die
+2022-01-18 22:03:58,098 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-10 10:31:13,543 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-10 10:31:13,550 INFO RPC interface 'supervisor' initialized
+2022-07-10 10:31:13,551 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-10 10:31:13,557 INFO supervisord started with pid 1
+2022-07-10 10:31:14,564 INFO spawned: 'gunicorn_wsgi' with pid 9
+2022-07-10 10:31:14,867 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 10:31:15,872 INFO spawned: 'gunicorn_wsgi' with pid 11
+2022-07-10 10:31:16,088 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 10:31:18,111 INFO spawned: 'gunicorn_wsgi' with pid 13
+2022-07-10 10:31:18,327 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 10:31:21,354 INFO spawned: 'gunicorn_wsgi' with pid 15
+2022-07-10 10:31:21,562 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 10:31:22,569 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-07-10 10:31:46,662 WARN received SIGTERM indicating exit request
+2022-07-10 11:19:43,471 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-10 11:19:43,476 INFO RPC interface 'supervisor' initialized
+2022-07-10 11:19:43,477 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-10 11:19:43,482 INFO supervisord started with pid 1
+2022-07-10 11:19:44,487 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-07-10 11:19:44,734 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:19:45,739 INFO spawned: 'gunicorn_wsgi' with pid 10
+2022-07-10 11:19:45,959 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:19:47,989 INFO spawned: 'gunicorn_wsgi' with pid 12
+2022-07-10 11:19:48,200 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:19:51,231 INFO spawned: 'gunicorn_wsgi' with pid 14
+2022-07-10 11:19:51,439 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:19:52,441 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-07-10 11:45:20,627 WARN received SIGTERM indicating exit request
+2022-07-10 11:49:45,470 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-10 11:49:45,473 INFO RPC interface 'supervisor' initialized
+2022-07-10 11:49:45,474 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-10 11:49:45,479 INFO supervisord started with pid 1
+2022-07-10 11:49:46,484 INFO spawned: 'gunicorn_wsgi' with pid 9
+2022-07-10 11:49:47,126 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:49:48,133 INFO spawned: 'gunicorn_wsgi' with pid 13
+2022-07-10 11:49:48,646 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:49:50,674 INFO spawned: 'gunicorn_wsgi' with pid 17
+2022-07-10 11:49:51,113 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:49:54,136 INFO spawned: 'gunicorn_wsgi' with pid 21
+2022-07-10 11:49:54,572 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 11:49:55,578 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-07-10 11:55:18,927 INFO reaped unknown pid 61 (exit status 120)
+2022-07-10 11:55:18,928 INFO reaped unknown pid 60 (exit status 120)
+2022-07-10 11:55:23,944 INFO reaped unknown pid 62 (exit status 120)
+2022-07-10 12:03:10,658 WARN received SIGTERM indicating exit request
+2022-07-10 12:03:11,572 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-10 12:03:11,576 INFO RPC interface 'supervisor' initialized
+2022-07-10 12:03:11,577 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-10 12:03:11,584 INFO supervisord started with pid 1
+2022-07-10 12:03:12,592 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-07-10 12:03:13,216 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 12:03:14,232 INFO spawned: 'gunicorn_wsgi' with pid 12
+2022-07-10 12:03:14,719 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 12:03:16,739 INFO spawned: 'gunicorn_wsgi' with pid 16
+2022-07-10 12:03:17,209 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 12:03:20,235 INFO spawned: 'gunicorn_wsgi' with pid 20
+2022-07-10 12:03:20,695 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-10 12:03:21,698 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-07-10 12:07:30,674 INFO reaped unknown pid 61 (exit status 120)
+2022-07-10 12:07:30,676 INFO reaped unknown pid 62 (exit status 120)
+2022-07-10 12:07:32,684 INFO reaped unknown pid 89 (exit status 0)
+2022-07-10 12:07:32,686 INFO reaped unknown pid 90 (exit status 0)
+2022-07-10 12:07:33,692 INFO reaped unknown pid 60 (exit status 120)
+2022-07-10 12:07:42,705 INFO reaped unknown pid 173 (exit status 0)
+2022-07-10 12:07:42,707 INFO reaped unknown pid 174 (exit status 0)
+2022-07-10 12:09:19,958 WARN received SIGTERM indicating exit request
+2022-07-10 12:09:20,797 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-10 12:09:20,801 INFO RPC interface 'supervisor' initialized
+2022-07-10 12:09:20,802 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-10 12:09:20,809 INFO supervisord started with pid 1
+2022-07-10 12:09:21,815 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-07-10 12:09:22,915 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-11 16:57:17,099 WARN received SIGTERM indicating exit request
+2022-07-11 16:57:17,113 INFO waiting for gunicorn_wsgi to die
+2022-07-11 16:57:17,367 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-11 16:57:29,858 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-11 16:57:29,861 INFO RPC interface 'supervisor' initialized
+2022-07-11 16:57:29,862 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-11 16:57:29,866 INFO supervisord started with pid 1
+2022-07-11 16:57:30,874 INFO spawned: 'gunicorn_wsgi' with pid 9
+2022-07-11 16:57:31,116 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 16:57:32,122 INFO spawned: 'gunicorn_wsgi' with pid 11
+2022-07-11 16:57:32,359 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 16:57:34,366 INFO spawned: 'gunicorn_wsgi' with pid 13
+2022-07-11 16:57:34,589 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 16:57:37,618 INFO spawned: 'gunicorn_wsgi' with pid 15
+2022-07-11 16:57:37,842 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 16:57:38,849 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-07-11 17:03:04,197 WARN received SIGTERM indicating exit request
+2022-07-11 17:03:22,086 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-11 17:03:22,089 INFO RPC interface 'supervisor' initialized
+2022-07-11 17:03:22,091 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-11 17:03:22,099 INFO supervisord started with pid 1
+2022-07-11 17:03:23,107 INFO spawned: 'gunicorn_wsgi' with pid 9
+2022-07-11 17:03:23,382 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 17:03:24,388 INFO spawned: 'gunicorn_wsgi' with pid 11
+2022-07-11 17:03:24,624 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 17:03:26,648 INFO spawned: 'gunicorn_wsgi' with pid 13
+2022-07-11 17:03:26,878 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 17:03:29,892 INFO spawned: 'gunicorn_wsgi' with pid 15
+2022-07-11 17:03:30,121 INFO exited: gunicorn_wsgi (exit status 3; not expected)
+2022-07-11 17:03:31,127 INFO gave up: gunicorn_wsgi entered FATAL state, too many start retries too quickly
+2022-07-11 17:03:31,151 WARN received SIGTERM indicating exit request
+2022-07-11 17:05:33,219 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-11 17:05:33,223 INFO RPC interface 'supervisor' initialized
+2022-07-11 17:05:33,224 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-11 17:05:33,230 INFO supervisord started with pid 1
+2022-07-11 17:05:34,240 INFO spawned: 'gunicorn_wsgi' with pid 10
+2022-07-11 17:05:35,346 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-11 17:05:39,361 WARN received SIGTERM indicating exit request
+2022-07-11 17:05:39,375 INFO waiting for gunicorn_wsgi to die
+2022-07-11 17:05:39,490 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-11 17:14:51,432 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-11 17:14:51,435 INFO RPC interface 'supervisor' initialized
+2022-07-11 17:14:51,436 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-11 17:14:51,441 INFO supervisord started with pid 1
+2022-07-11 17:14:52,466 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-07-11 17:14:53,586 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-11 17:14:59,615 WARN received SIGTERM indicating exit request
+2022-07-11 17:14:59,616 INFO waiting for gunicorn_wsgi to die
+2022-07-11 17:15:00,738 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-11 17:17:27,200 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-11 17:17:27,203 INFO RPC interface 'supervisor' initialized
+2022-07-11 17:17:27,204 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-11 17:17:27,207 INFO supervisord started with pid 1
+2022-07-11 17:17:28,213 INFO spawned: 'gunicorn_wsgi' with pid 9
+2022-07-11 17:17:29,316 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-11 17:17:38,352 WARN received SIGTERM indicating exit request
+2022-07-11 17:17:38,354 INFO waiting for gunicorn_wsgi to die
+2022-07-11 17:17:38,470 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-11 17:22:12,487 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-11 17:22:12,491 INFO RPC interface 'supervisor' initialized
+2022-07-11 17:22:12,495 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-11 17:22:12,501 INFO supervisord started with pid 1
+2022-07-11 17:22:13,507 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-07-11 17:22:14,610 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-11 17:22:20,633 WARN received SIGTERM indicating exit request
+2022-07-11 17:22:20,651 INFO waiting for gunicorn_wsgi to die
+2022-07-11 17:22:20,766 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-11 17:33:56,899 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-11 17:33:56,904 INFO RPC interface 'supervisor' initialized
+2022-07-11 17:33:56,905 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-11 17:33:56,916 INFO supervisord started with pid 1
+2022-07-11 17:33:57,923 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-07-11 17:33:59,048 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-11 17:37:54,884 WARN received SIGTERM indicating exit request
+2022-07-11 17:37:54,893 INFO waiting for gunicorn_wsgi to die
+2022-07-11 17:37:55,016 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-12 08:18:14,359 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-12 08:18:14,364 INFO RPC interface 'supervisor' initialized
+2022-07-12 08:18:14,365 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-12 08:18:14,371 INFO supervisord started with pid 1
+2022-07-12 08:18:15,382 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-07-12 08:18:16,484 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-12 08:31:47,572 WARN received SIGTERM indicating exit request
+2022-07-12 08:31:47,575 INFO waiting for gunicorn_wsgi to die
+2022-07-12 08:31:47,693 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-14 07:57:41,371 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-14 07:57:41,377 INFO RPC interface 'supervisor' initialized
+2022-07-14 07:57:41,378 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-14 07:57:41,383 INFO supervisord started with pid 1
+2022-07-14 07:57:42,388 INFO spawned: 'gunicorn_wsgi' with pid 7
+2022-07-14 07:57:43,509 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-14 08:49:23,306 WARN received SIGTERM indicating exit request
+2022-07-14 08:49:23,309 INFO waiting for gunicorn_wsgi to die
+2022-07-14 08:49:23,425 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-14 10:20:13,055 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-14 10:20:13,058 INFO RPC interface 'supervisor' initialized
+2022-07-14 10:20:13,059 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-14 10:20:13,064 INFO supervisord started with pid 1
+2022-07-14 10:20:14,069 INFO spawned: 'gunicorn_wsgi' with pid 9
+2022-07-14 10:20:15,170 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-14 10:21:27,397 WARN received SIGTERM indicating exit request
+2022-07-14 10:21:27,424 INFO waiting for gunicorn_wsgi to die
+2022-07-14 10:21:27,540 INFO stopped: gunicorn_wsgi (exit status 0)
+2022-07-14 10:26:52,170 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2022-07-14 10:26:52,173 INFO RPC interface 'supervisor' initialized
+2022-07-14 10:26:52,174 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2022-07-14 10:26:52,178 INFO supervisord started with pid 1
+2022-07-14 10:26:53,183 INFO spawned: 'gunicorn_wsgi' with pid 8
+2022-07-14 10:26:54,285 INFO success: gunicorn_wsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-07-14 10:26:57,294 WARN received SIGTERM indicating exit request
+2022-07-14 10:26:57,312 INFO waiting for gunicorn_wsgi to die
+2022-07-14 10:26:57,432 INFO stopped: gunicorn_wsgi (exit status 0)

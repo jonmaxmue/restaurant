@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Docker Compose with NginX, Django, Gunicorn and multiple Postgres databases | ReadTheBlog</title>
+<meta name="generator" content="Jekyll v3.7.4">
+<meta property="og:title" content="Docker Compose with NginX, Django, Gunicorn and multiple Postgres databases">
+<meta name="author" content="Timothée Mazzucotelli">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="This post explains how to setup your Docker configuration for a web application based on the Django framework. I got a lot of inspiration from other tutorials and Docker examples: you can check these resources with the links at the bottom of the post. You can also directly check the repository that reflects this tutorial.">
+<meta property="og:description" content="This post explains how to setup your Docker configuration for a web application based on the Django framework. I got a lot of inspiration from other tutorials and Docker examples: you can check these resources with the links at the bottom of the post. You can also directly check the repository that reflects this tutorial.">
+<link rel="canonical" href="http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html">
+<meta property="og:url" content="http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html">
+<meta property="og:site_name" content="ReadTheBlog">
+<meta property="og:image" content="http://pawamoy.github.io/assets/docker4.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-02-01T13:00:00+00:00">
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Docker Compose with NginX, Django, Gunicorn and multiple Postgres databases","dateModified":"2018-02-01T13:00:00+00:00","datePublished":"2018-02-01T13:00:00+00:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html"},"url":"http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html","author":{"@type":"Person","name":"Timothée Mazzucotelli"},"image":"http://pawamoy.github.io/assets/docker4.png","description":"This post explains how to setup your Docker configuration for a web application based on the Django framework. I got a lot of inspiration from other tutorials and Docker examples: you can check these resources with the links at the bottom of the post. You can also directly check the repository that reflects this tutorial.","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/main.css"><link type="application/atom+xml" rel="alternate" href="http://pawamoy.github.io/feed.xml" title="ReadTheBlog"><script src="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/embed.js" data-timestamp="1558185811877"></script><link rel="prefetch" as="style" href="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/a_data/lounge.css"><link rel="prefetch" as="script" href="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/a_data/common.js"><link rel="prefetch" as="script" href="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/a_data/lounge.js"><link rel="prefetch" as="script" href="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/a_data/config.js"></head>
+<body><div class="site-sidebar">
+
+    <a class="sidebar-title" href="http://pawamoy.github.io/">ReadTheBlog</a>
+
+    
+    
+    <!--  -->
+    <nav class="site-nav">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger">
+      <label for="nav-trigger">
+        <span class="menu-icon">
+          <svg viewBox="0 0 18 15" width="18px" height="15px">
+            <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"></path>
+            <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"></path>
+            <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"></path>
+          </svg>
+        </span>
+      </label>
+
+      <form class="trigger" method="get" action="/search.html">
+        <input type="text" name="q" placeholder="Search blog">
+      </form>
+
+      <ul id="page-list" class="trigger sidebar-list">
+        
+          
+          
+        
+          
+          
+            <li class=""><a href="http://pawamoy.github.io/about/">About</a></li>
+          
+        
+          
+          
+            <li class=""><a href="http://pawamoy.github.io/credits/">Credits</a></li>
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      </ul>
+    <!--  -->
+
+      
+        <ul id="post-list" class="trigger sidebar-list">
+          
+            <li class="">
+              
+              <span>Feb 1, 2019</span><br>
+              <a href="http://pawamoy.github.io/2019/02/01/challenge-fill-space-one-line-90-degree-same-direction/">Challenge: fill a 2D space with one continuous line doing 90° angle turns in the same direction (left/right)</a>
+            </li>
+          
+            <li class="">
+              
+              <span>Mar 15, 2018</span><br>
+              <a href="http://pawamoy.github.io/2018/03/15/django-auth-server-for-shiny/">Django application as an authentication / authorization server for Shiny</a>
+            </li>
+          
+            <li class="">
+              
+              <span>Mar 9, 2018</span><br>
+              <a href="http://pawamoy.github.io/2018/03/09/dual-screens-setup-nvidia-bunsenlabs-debian-jessie/">How to install NVidia drivers on BunsenLabs/Debian 8 to setup dual screens</a>
+            </li>
+          
+            <li class="active">
+              
+              <span>Feb 1, 2018</span><br>
+              <a href="http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html">Docker Compose with NginX, Django, Gunicorn and multiple Postgres databases</a>
+            <ul class="sidebar-headings"><li class="sidebar-h2"><a href="#overview-to-get-a-better-understanding-of-the-whole-thing">Overview: to get a better understanding of the whole thing</a></li><li class="sidebar-h2"><a href="#dockerfile-a-simple-django-application-served-by-gunicorn">Dockerfile: a simple Django application served by Gunicorn</a></li><li class="sidebar-h2"><a href="#pipenv-spice-things-up-with-pipfile-and-pipfilelock">Pipenv: spice things up with Pipfile and Pipfile.lock</a></li><li class="sidebar-h2"><a href="#compose-add-a-container-for-nginx">Compose: add a container for NginX</a></li><li class="sidebar-h2"><a href="#compose-add-containers-for-one-or-more-postgres-databases">Compose: add containers for one or more Postgres databases</a></li><li class="sidebar-h2"><a href="#static-files-collecting-storing-and-serving">Static files: collecting, storing and serving</a></li><li class="sidebar-h2"><a href="#resources">Resources</a></li><li class="sidebar-h2"><a href="#comments">Comments</a></li></ul></li>
+          
+            <li class="">
+              
+              <span>May 31, 2017</span><br>
+              <a href="http://pawamoy.github.io/2017/05/31/python-static-code-analysis-tools.html">Python static code analysis tools</a>
+            </li>
+          
+            <li class="">
+              
+              <span>Dec 7, 2016</span><br>
+              <a href="http://pawamoy.github.io/2016/12/07/documentation-in-your-shell-scripts-using-shellman.html">Documentation in your shell scripts using shellman</a>
+            </li>
+          
+            <li class="">
+              
+              <span>Dec 7, 2016</span><br>
+              <a href="http://pawamoy.github.io/2016/12/07/write-and-use-a-tox-plugin-from-inside-your-package.html">Write and use a tox plugin from inside your package</a>
+            </li>
+          
+            <li class="">
+              
+              <span>Apr 6, 2016</span><br>
+              <a href="http://pawamoy.github.io/2016/04/06/django-dashboard-with-suit-and-highcharts.html">Django admin dashboard with Suit and Highcharts</a>
+            </li>
+          
+        </ul>
+      
+    </nav>
+
+</div>
+<div class="main-wrapper"><header class="site-header" role="banner">
+
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="http://pawamoy.github.io/">ReadTheBlog</a>
+  </div>
+</header>
+<main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <p class="post-meta">
+      <span itemprop="author" itemscope="" itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">
+      Timothée Mazzucotelli</span></span>
+      <time class="dt-published" datetime="2018-02-01T13:00:00+00:00" itemprop="datePublished">Feb 1, 2018
+      </time>
+    </p>
+    <h1 class="post-title p-name" itemprop="name headline">Docker Compose with NginX, Django, Gunicorn and multiple Postgres databases</h1>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This post explains how to setup your Docker configuration for a web application
+based on the Django framework. I got a lot of inspiration from other tutorials
+and Docker examples: you can check these resources with the links at the bottom
+of the post. You can also directly check the
+<a href="https://github.com/Pawamoy/docker-nginx-postgres-django-example">repository</a>
+that reflects this tutorial.</p>
+
+<p>In this particular example, we will use Gunicorn, but it should be easy enough
+to replace it with an alternative Python WSGI HTTP server such as uwsgi. We will
+also make use of pipenv, with related Pipfile and Pipfile.lock, instead of plain
+pip and requirements.txt files.</p>
+
+<p>Here is the plan:</p>
+
+<ol>
+  <li><a href="#overview-to-get-a-better-understanding-of-the-whole-thing">Overview: to get a better understanding of the whole thing</a></li>
+  <li><a href="#dockerfile-a-simple-django-application-served-by-gunicorn">Dockerfile: a simple Django application served by Gunicorn</a></li>
+  <li><a href="#pipenv-spice-things-up-with-pipfile-and-pipfilelock">Pipenv: spice things up with Pipfile and Pipfile.lock</a></li>
+  <li><a href="#compose-add-a-container-for-nginx">Compose: add a container for NginX</a></li>
+  <li><a href="#compose-add-containers-for-one-or-more-postgres-databases">Compose: add containers for one or more Postgres databases</a></li>
+  <li><a href="#static-files-collecting-storing-and-serving">Static files: collecting, storing and serving</a></li>
+  <li><a href="#resources">Resources</a></li>
+</ol>
+
+<p><a href="#comments">Go to comments</a></p>
+
+<h2 id="overview-to-get-a-better-understanding-of-the-whole-thing">Overview: to get a better understanding of the whole thing</h2>
+<p>So, let’s start with some drawings in order to get a better idea of what we want
+to accomplish, and how everything will fit together.</p>
+
+<p>In this first, very simple image, you can see that we want three containers:
+one for NginX, one for Django + Gunicorn (they always go together), and one for
+our database. The NginX container communicate with the Django+Gunicorn one,
+which itself connects to the Postgres container. Pretty straight-forward, right?</p>
+
+<p><img src="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/docker1.png" alt="docker1"></p>
+
+<p>In our configuration, it means we will declare three containers, or three
+services if we talk in terms of Docker Compose.</p>
+
+<p>Except that we need bridges between the containers, in order for them to
+communicate. Let’s add these bridges:</p>
+
+<p><img src="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/docker2.png" alt="docker2"></p>
+
+<p>In <code class="highlighter-rouge">docker-compose.yml</code>, we will declare these bridges thanks to the <code class="highlighter-rouge">networks</code>
+directive, and connect them to the right containers.</p>
+
+<p>Of course, you may want or need several databases for your project. So here is
+an updated image with two database containers. It’s simply a matter of adding
+a new brige:</p>
+
+<p><img src="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/docker3.png" alt="docker3"></p>
+
+<p>Once you know how to do it for two databases, it’s very easy to add more.</p>
+
+<p>Now, this is enough for local development. But each time you restart your
+containers or services, the data in the Postgres databases will be lost. In
+production, we need these data to be persistent. If we keep the data in
+production, let’s keep them in local environment as well. To do this, we will
+use volumes, a feature of Docker:</p>
+
+<p><img src="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/docker4.png" alt="docker4"></p>
+
+<p>Alright, that is enough for the overview, let’s get our hands dirty!</p>
+
+<h2 id="dockerfile-a-simple-django-application-served-by-gunicorn">Dockerfile: a simple Django application served by Gunicorn</h2>
+<p>If you don’t already have a simple Django project available for testing,
+I invite you to create one with <code class="highlighter-rouge">django-admin startproject hello</code>.</p>
+
+<p>Here is the directory/file tree you should have in order to follow this
+tutorial:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.                         # Your current directory, created for this tutorial
+└── hello                 # The Django project
+ &nbsp;&nbsp; ├── hello             # The main Django app of your project
+ &nbsp;&nbsp; │&nbsp;&nbsp; ├── __init__.py
+ &nbsp;&nbsp; │&nbsp;&nbsp; ├── settings.py
+ &nbsp;&nbsp; │&nbsp;&nbsp; ├── urls.py
+ &nbsp;&nbsp; │&nbsp;&nbsp; └── wsgi.py
+    └── manage.py
+</code></pre></div></div>
+
+<p>Now that you have a working Django project, you can run it by going into the
+<code class="highlighter-rouge">hello</code> directory and type <code class="highlighter-rouge">./manage.py runserver</code>. Go to
+<a href="http://localhost:8000/">http://localhost:8000</a> to see the result.</p>
+
+<p>Instead of running it with the Django <code class="highlighter-rouge">runserver</code> management command, let’s try
+with Gunicorn. First, install it with <code class="highlighter-rouge">pip install gunicorn</code>, be it in a
+virtualenv or system-wide with <code class="highlighter-rouge">sudo pip install gunicorn</code>.</p>
+
+<p>It’s as easy as running <code class="highlighter-rouge">gunicorn --bind :8000 hello.wsgi:application</code> from
+inside the Django project. If you are one directory above, use
+<code class="highlighter-rouge">gunicorn --chdir hello --bind :8000 hello.wsgi:application</code>.</p>
+
+<p>We have all we need to write our Dockerfile:</p>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># start from an official image</span>
+<span class="k">FROM</span><span class="s"> python:3.6</span>
+
+<span class="c"># arbitrary location choice: you can change the directory</span>
+<span class="k">RUN </span>mkdir <span class="nt">-p</span> /opt/services/djangoapp/src
+<span class="k">WORKDIR</span><span class="s"> /opt/services/djangoapp/src</span>
+
+<span class="c"># install our two dependencies</span>
+<span class="k">RUN </span>pip install gunicorn django
+
+<span class="c"># copy our project code</span>
+<span class="k">COPY</span><span class="s"> . /opt/services/djangoapp/src</span>
+
+<span class="c"># expose the port 8000</span>
+<span class="k">EXPOSE</span><span class="s"> 8000</span>
+
+<span class="c"># define the default command to run when starting the container</span>
+<span class="k">CMD</span><span class="s"> ["gunicorn", "--chdir", "hello", "--bind", ":8000", "hello.wsgi:application"]</span>
+</code></pre></div></div>
+
+<p>The Dockerfile must be placed at the root of your test directory. As a reminder:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.                         # Your current directory, created for this tutorial
+├── hello                 # The Django project
+│&nbsp;&nbsp; ├── hello             # The main Django app of your project
+│&nbsp;&nbsp; └── manage.py
+└── Dockerfile            # Your Dockerfile
+</code></pre></div></div>
+
+<p>We are now able to build our container with <code class="highlighter-rouge">docker build . -t hello</code>, and to
+start it with <code class="highlighter-rouge">docker run -p 8000:8000 hello</code>. The <code class="highlighter-rouge">-p 8000:8000</code> option says to
+bind the port 8000 of the host to the port 8000 of the container, allowing you
+to go to <a href="http://localhost:8000/">http://localhost:8000</a> and see your application
+running as if you were inside of the container.</p>
+
+<h2 id="pipenv-spice-things-up-with-pipfile-and-pipfilelock">Pipenv: spice things up with Pipfile and Pipfile.lock</h2>
+<p>This step is completely optional. If you prefer to use plain pip and
+requirements files, you can skip this section.</p>
+
+<p>First install pipenv with <code class="highlighter-rouge">pip install pipenv</code>, or system-wide with
+<code class="highlighter-rouge">sudo pip install pipenv</code>.
+Since we only need Django and Gunicorn, our Pipfile will be very simple:</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[[source]]</span>
+<span class="py">url</span> <span class="p">=</span> <span class="s">"https://pypi.python.org/simple"</span>
+<span class="py">verify_ssl</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="py">name</span> <span class="p">=</span> <span class="s">"pypi"</span>
+
+
+<span class="nn">[packages]</span>
+<span class="py">Django</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">gunicorn</span> <span class="p">=</span> <span class="s">"*"</span>
+
+
+<span class="nn">[requires]</span>
+<span class="c"># our Dockerfile is based on Python 3.6</span>
+<span class="py">python_version</span> <span class="p">=</span> <span class="s">"3.6"</span>
+</code></pre></div></div>
+
+<p>Just like the Dockerfile, Pipfile must be placed at the root of the project.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+├── hello
+│&nbsp;&nbsp; ├── hello
+│&nbsp;&nbsp; └── manage.py
+├── Dockerfile
+└── Pipfile
+</code></pre></div></div>
+
+<p>Simply run <code class="highlighter-rouge">pipenv lock</code> to create Pipfile.lock from Pipfile.</p>
+
+<p>Now we need to update our Dockerfile to use pipenv:</p>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># start from an official image</span>
+<span class="k">FROM</span><span class="s"> python:3.6</span>
+
+<span class="c"># arbitrary location choice: you can change the directory</span>
+<span class="k">RUN </span>mkdir <span class="nt">-p</span> /opt/services/djangoapp/src
+<span class="k">WORKDIR</span><span class="s"> /opt/services/djangoapp/src</span>
+
+<span class="c"># install our dependencies</span>
+<span class="c"># we use --system flag because we don't need an extra virtualenv</span>
+<span class="k">COPY</span><span class="s"> Pipfile Pipfile.lock /opt/services/djangoapp/src/</span>
+<span class="k">RUN </span>pip install pipenv <span class="o">&amp;&amp;</span> pipenv install <span class="nt">--system</span>
+
+<span class="c"># copy our project code</span>
+<span class="k">COPY</span><span class="s"> . /opt/services/djangoapp/src</span>
+
+<span class="c"># expose the port 8000</span>
+<span class="k">EXPOSE</span><span class="s"> 8000</span>
+
+<span class="c"># define the default command to run when starting the container</span>
+<span class="k">CMD</span><span class="s"> ["gunicorn", "--chdir", "hello", "--bind", ":8000", "hello.wsgi:application"]</span>
+</code></pre></div></div>
+
+<p>You can rebuild the image with <code class="highlighter-rouge">docker build . -t hello</code> and try to run it again
+to see if everything works correctly.</p>
+
+<h2 id="compose-add-a-container-for-nginx">Compose: add a container for NginX</h2>
+<p>Since we will then have two containers, one for Django + Gunicorn, and one for
+NginX, it’s time to start our composition with Docker Compose and
+<code class="highlighter-rouge">docker-compose.yml</code>. Create your <code class="highlighter-rouge">docker-compose.yml</code> file at the root of the
+project, like following:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+├── hello
+│&nbsp;&nbsp; ├── hello
+│&nbsp;&nbsp; └── manage.py
+├── docker-compose.yml
+├── Dockerfile
+└── Pipfile
+</code></pre></div></div>
+
+<p>We are gonna use the version 3 of the configuration syntax. First, we add
+the Django+Gunicorn service:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">djangoapp</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">.</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">.:/opt/services/djangoapp/src</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8000:8000</span>
+</code></pre></div></div>
+
+<p>We simply tell Docker Compose that the <code class="highlighter-rouge">djangoapp</code> service must use an image
+that is built from the current directory, therefore looking for our Dockerfile.
+The <code class="highlighter-rouge">volumes</code> directive tells to bind the current directory of the host to the
+<code class="highlighter-rouge">/opt/services/djangoapp/src</code> directory of the container. The changes in our
+current directory will be reflected in real-time in the container directory.
+And reciprocally, changes that occur in the container directory will occur
+in our current directory as well.</p>
+
+<p>Build and run the service with <code class="highlighter-rouge">docker-compose up</code>. The name of the image will
+be automatically chosen by Docker Compose (it will be the name of the current
+directory with <code class="highlighter-rouge">_djangoapp</code> appended).</p>
+
+<p>Ok, let’s add our NginX service now:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+
+  <span class="na">djangoapp</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">.</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">.:/opt/services/djangoapp/src</span>
+
+  <span class="na">nginx</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.13</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8000:80</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./config/nginx/conf.d:/etc/nginx/conf.d</span>
+    <span class="na">depends_on</span><span class="pi">:</span>  <span class="c1"># &lt;-- wait for djangoapp to be "ready" before starting this service</span>
+      <span class="pi">-</span> <span class="s">djangoapp</span>
+</code></pre></div></div>
+
+<p>Note that we removed the <code class="highlighter-rouge">ports</code> directive from our <code class="highlighter-rouge">djangoapp</code> service. Indeed
+we will not communicate directly with Gunicorn anymore, but with NginX. We still
+want to access our app at <a href="http://localhost:8000/">http://localhost:8000</a>, and
+we want NginX to listen to the port 80 in the container, so we use
+<code class="highlighter-rouge">ports: - 8000:80</code>.</p>
+
+<p>Note: in a production environment, we would use <code class="highlighter-rouge">80:80</code> instead.</p>
+
+<p>We also bind a local directory to the <code class="highlighter-rouge">/etc/nginx/conf.d</code> container directory.
+Let’s create it and see what’s inside:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir <span class="nt">-p</span> config/nginx/conf.d
+touch config/nginx/conf.d/local.conf
+</code></pre></div></div>
+
+<p>You should now have the following files and directories:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+├── config
+│&nbsp;&nbsp; └── nginx
+│&nbsp;&nbsp;     └── conf.d
+│&nbsp;&nbsp;         └── local.conf
+├── docker-compose.yml
+├── Dockerfile
+├── hello
+│&nbsp;&nbsp; ├── hello
+│&nbsp;&nbsp; └── manage.py
+├── Pipfile
+└── Pipfile.lock
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">config/nginx/conf.d/local.conf</code> file contains our NginX configuration:</p>
+
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first we declare our upstream server, which is our Gunicorn application
+</span><span class="k">upstream</span> <span class="s">hello_server</span> <span class="p">{</span>
+    <span class="c1"># docker will automatically resolve this to the correct address
+</span>    <span class="c1"># because we use the same name as the service: "djangoapp"
+</span>    <span class="kn">server</span> <span class="nf">djangoapp</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># now we declare our main server
+</span><span class="k">server</span> <span class="p">{</span>
+
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">localhost</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+        <span class="c1"># everything is passed to Gunicorn
+</span>        <span class="kn">proxy_pass</span> <span class="s">http://hello_server</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+        <span class="kn">proxy_redirect</span> <span class="no">off</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>But before we try this out, remember that we need a bridge to make our services
+able to communicate?</p>
+
+<p>Update your <code class="highlighter-rouge">docker-compose.yml</code> as follow:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+
+  <span class="na">djangoapp</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">.</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">.:/opt/services/djangoapp/src</span>
+    <span class="na">networks</span><span class="pi">:</span>  <span class="c1"># &lt;-- here</span>
+      <span class="pi">-</span> <span class="s">nginx_network</span>
+
+  <span class="na">nginx</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.13</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8000:80</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./config/nginx/conf.d:/etc/nginx/conf.d</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">djangoapp</span>
+    <span class="na">networks</span><span class="pi">:</span>  <span class="c1"># &lt;-- here</span>
+      <span class="pi">-</span> <span class="s">nginx_network</span>
+
+<span class="na">networks</span><span class="pi">:</span>  <span class="c1"># &lt;-- and here</span>
+  <span class="na">nginx_network</span><span class="pi">:</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
+</code></pre></div></div>
+
+<p>Run <code class="highlighter-rouge">docker-compose up</code> and see if you can still see the Django default page
+at <a href="http://localhost:8000/">http://localhost:8000</a>.</p>
+
+<h2 id="compose-add-containers-for-one-or-more-postgres-databases">Compose: add containers for one or more Postgres databases</h2>
+<p>We now want to use Postgres instead of the starting default SQLite database.
+We will need to update several things: our Pipfile, because we need the
+<code class="highlighter-rouge">psycopg2</code> Python package, the Postgres driver; our Django project settings; and
+our <code class="highlighter-rouge">docker-compose.yml</code> file.</p>
+
+<ul>
+  <li>
+    <p>Pipfile becomes:</p>
+
+    <div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[[source]]</span>
+<span class="py">url</span> <span class="p">=</span> <span class="s">"https://pypi.python.org/simple"</span>
+<span class="py">verify_ssl</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="py">name</span> <span class="p">=</span> <span class="s">"pypi"</span>
+
+
+<span class="nn">[packages]</span>
+<span class="py">Django</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">gunicorn</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">"psycopg2"</span> <span class="p">=</span> <span class="s">"*"</span>
+
+
+<span class="nn">[requires]</span>
+<span class="c"># our Dockerfile is based on Python 3.6</span>
+<span class="py">python_version</span> <span class="p">=</span> <span class="s">"3.6"</span>
+</code></pre></div>    </div>
+
+    <p>Don’t forget to run <code class="highlighter-rouge">pipenv lock</code> to update your lock file, and rebuild your
+Docker image with <code class="highlighter-rouge">docker-compose build</code>.</p>
+  </li>
+  <li>
+    <p>In the Django project settings, update the DATABASE setting from:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'default'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">'ENGINE'</span><span class="p">:</span> <span class="s">'django.db.backends.sqlite3'</span><span class="p">,</span>
+        <span class="s">'NAME'</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">'db.sqlite3'</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>…to:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'default'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">'ENGINE'</span><span class="p">:</span> <span class="s">'django.db.backends.postgresql_psycopg2'</span><span class="p">,</span>
+        <span class="s">'NAME'</span><span class="p">:</span> <span class="s">'database1'</span><span class="p">,</span>
+        <span class="s">'USER'</span><span class="p">:</span> <span class="s">'database1_role'</span><span class="p">,</span>
+        <span class="s">'PASSWORD'</span><span class="p">:</span> <span class="s">'database1_password'</span><span class="p">,</span>
+        <span class="s">'HOST'</span><span class="p">:</span> <span class="s">'database1'</span><span class="p">,</span>  <span class="c"># &lt;-- IMPORTANT: same name as docker-compose service!</span>
+        <span class="s">'PORT'</span><span class="p">:</span> <span class="s">'5432'</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>As you can see, we used <code class="highlighter-rouge">database1</code> everywhere, for the name, user, password
+and host. In fact, we can change these values to whatever suits us. But we
+must ensure the database container will use the same values! To do that, we
+will copy these values in a configuration file destined to be read by our
+database container.</p>
+
+    <p>Create a <code class="highlighter-rouge">db</code> directory in the <code class="highlighter-rouge">config</code> one, and add the <code class="highlighter-rouge">database1_env</code> file:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir config/db
+touch config/db/database1_env
+</code></pre></div>    </div>
+
+    <p>The contents of <code class="highlighter-rouge">config/db/database1_env</code> must then be:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POSTGRES_USER=database1_role
+POSTGRES_PASSWORD=database1_password
+POSTGRES_DB=database1
+</code></pre></div>    </div>
+
+    <p>These variable are used by the Postgres Docker image, for more information
+please check out the documentation on
+<a href="https://docs.docker.com/samples/library/postgres/#postgres_user">docs.docker.com</a>
+or <a href="https://hub.docker.com/_/postgres/">hub.docker.com</a>.</p>
+
+    <p>It means that, when started, the Postgres container will create a database
+called <code class="highlighter-rouge">database1</code>, assigned to the role <code class="highlighter-rouge">database1_role</code> with password
+<code class="highlighter-rouge">database1_password</code>. If you change these values, remember to also change them
+in the DATABASES setting.</p>
+  </li>
+  <li>
+    <p>We are now ready to add our service in <code class="highlighter-rouge">docker-compose.yml</code>. <strong>The added
+service must have the same name than what is declared in the DATABASES
+setting:</strong></p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+
+  <span class="na">djangoapp</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">.</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">.:/opt/services/djangoapp/src</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">nginx_network</span>
+      <span class="pi">-</span> <span class="s">database1_network</span>  <span class="c1"># &lt;-- connect to the bridge</span>
+    <span class="na">depends_on</span><span class="pi">:</span>  <span class="c1"># &lt;-- wait for db to be "ready" before starting the app</span>
+      <span class="pi">-</span> <span class="s">database1</span>
+
+  <span class="na">nginx</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.13</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8000:80</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./config/nginx/conf.d:/etc/nginx/conf.d</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">djangoapp</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">nginx_network</span>
+
+  <span class="na">database1</span><span class="pi">:</span>  <span class="c1"># &lt;-- IMPORTANT: same name as in DATABASES setting, otherwise Django won't find the database!</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">postgres:10</span>
+    <span class="na">env_file</span><span class="pi">:</span>  <span class="c1"># &lt;-- we use the previously defined values</span>
+      <span class="pi">-</span> <span class="s">config/db/database1_env</span>
+    <span class="na">networks</span><span class="pi">:</span>  <span class="c1"># &lt;-- connect to the bridge</span>
+      <span class="pi">-</span> <span class="s">database1_network</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">database1_volume:/var/lib/postgresql/data</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">nginx_network</span><span class="pi">:</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
+  <span class="na">database1_network</span><span class="pi">:</span>  <span class="c1"># &lt;-- add the bridge</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">database1_volume</span><span class="pi">:</span>
+</code></pre></div>    </div>
+
+    <p>You should be able to understand everything here. However, we added two new
+things: the <code class="highlighter-rouge">database1: volumes:</code> directive, and the root <code class="highlighter-rouge">volumes:</code>
+directive. You need to declare your volumes in the root <code class="highlighter-rouge">volumes:</code> directive
+if you want them to be kept persistently. Then, you can bind a volume to a
+directory in the container. Here, we bind our declared <code class="highlighter-rouge">database1_volume</code> to
+the <code class="highlighter-rouge">database1</code> container’s <code class="highlighter-rouge">/var/lib/postgresql/data</code> directory. Everything
+added to this directory will be persistently stored in the volume called
+<code class="highlighter-rouge">database1_volume</code>. So each subsequent run of the container will have access
+to the previous data! It means you can stop and restart your service without
+losing the data.</p>
+  </li>
+</ul>
+
+<p>OK, let’s try it. As we are using Django, we need to “migrate” the database
+first. To do this, we will simply use Docker Compose to start our <code class="highlighter-rouge">djangoapp</code>
+service and run the migration command inside it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose build  <span class="c"># to make sure everything is up-to-date</span>
+docker-compose run <span class="nt">--rm</span> djangoapp /bin/bash <span class="nt">-c</span> <span class="s2">"cd hello; ./manage.py migrate"</span>
+</code></pre></div></div>
+
+<p>From now on, it should be really easy to add other databases: just add other
+database services (<code class="highlighter-rouge">database2</code>) with their networks volumes (remember to
+connect the networks and bind the volumes), update your DATABASES setting in
+the Django project, and create the environment file for each database in
+<code class="highlighter-rouge">config/db</code>.</p>
+
+<h2 id="static-files-collecting-storing-and-serving">Static files: collecting, storing and serving</h2>
+<p><strong>UPDATE</strong>: a lot of us (including myself) seem to have trouble updating
+the static files in the designated Docker volume. In retrospect,
+collecting the static files in the Dockerfile might not be a good idea,
+because of the caching mechanisms of Docker. A simple and effective solution,
+mentioned by Isaac T Chikutukutu in the comments, is to remove this command
+from the Dockerfile and manually run it when needed:
+<code class="highlighter-rouge">docker-compose run djangoapp hello/manage.py collectstatic --no-input</code></p>
+
+<p>I edited the rest of the post accordingly.</p>
+
+<p><strong>(End of update)</strong></p>
+
+<p>Let’s not forget about the static files! In order for NginX to serve them,
+we will update the <code class="highlighter-rouge">config/nginx/conf.d/local.conf</code> file, as well as our
+<code class="highlighter-rouge">docker-compose.yml</code> file. Static files will be stored in volumes.
+We also need to set the <code class="highlighter-rouge">STATIC_ROOT</code> and <code class="highlighter-rouge">MEDIA_ROOT</code> variables
+in the Django project settings.</p>
+
+<ul>
+  <li>
+    <p>NginX configuration:</p>
+
+    <div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">upstream</span> <span class="s">hello_server</span> <span class="p">{</span>
+    <span class="kn">server</span> <span class="nf">djangoapp</span><span class="p">:</span><span class="mi">8000</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">localhost</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://hello_server</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+        <span class="kn">proxy_redirect</span> <span class="no">off</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="n">/static/</span> <span class="p">{</span>
+        <span class="kn">alias</span> <span class="n">/opt/services/djangoapp/static/</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="n">/media/</span> <span class="p">{</span>
+        <span class="kn">alias</span> <span class="n">/opt/services/djangoapp/media/</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Django project settings:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># as declared in NginX conf, it must match /opt/services/djangoapp/static/</span>
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">)),</span> <span class="s">'static'</span><span class="p">)</span>
+
+<span class="c"># do the same for media files, it must match /opt/services/djangoapp/media/</span>
+<span class="n">MEDIA_ROOT</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">)),</span> <span class="s">'media'</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Volumes in <code class="highlighter-rouge">docker-compose.yml</code>:</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+
+  <span class="na">djangoapp</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">.</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">.:/opt/services/djangoapp/src</span>
+      <span class="pi">-</span> <span class="s">static_volume:/opt/services/djangoapp/static</span>  <span class="c1"># &lt;-- bind the static volume</span>
+      <span class="pi">-</span> <span class="s">media_volume:/opt/services/djangoapp/media</span>  <span class="c1"># &lt;-- bind the media volume</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">nginx_network</span>
+      <span class="pi">-</span> <span class="s">database1_network</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">database1</span>
+
+  <span class="na">nginx</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:1.13</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">8000:80</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./config/nginx/conf.d:/etc/nginx/conf.d</span>
+      <span class="pi">-</span> <span class="s">static_volume:/opt/services/djangoapp/static</span>  <span class="c1"># &lt;-- bind the static volume</span>
+      <span class="pi">-</span> <span class="s">media_volume:/opt/services/djangoapp/media</span>  <span class="c1"># &lt;-- bind the media volume</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">djangoapp</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">nginx_network</span>
+
+  <span class="na">database1</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">postgres:10</span>
+    <span class="na">env_file</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">config/db/database1_env</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">database1_network</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">database1_volume:/var/lib/postgresql/data</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">nginx_network</span><span class="pi">:</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
+  <span class="na">database1_network</span><span class="pi">:</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">database1_volume</span><span class="pi">:</span>
+  <span class="na">static_volume</span><span class="pi">:</span>  <span class="c1"># &lt;-- declare the static volume</span>
+  <span class="na">media_volume</span><span class="pi">:</span>  <span class="c1"># &lt;-- declare the media volume</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>And finally, collect the static files each time you need to update them, by running:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose run djangoapp hello/manage.py collectstatic <span class="nt">--no-input</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="resources">Resources</h2>
+<p>Here are the resources I used to write this tutorial:</p>
+
+<ul>
+  <li><a href="http://www.ameyalokare.com/docker/2017/09/20/nginx-flask-postgres-docker-compose.html">Nginx+Flask+Postgres multi-container setup with Docker Compose</a>
+    <ul>
+      <li><a href="https://github.com/juggernaut/nginx-flask-postgres-docker-compose-example">The repository</a></li>
+    </ul>
+  </li>
+  <li><a href="https://serverfault.com/questions/783806/docker-how-to-django-uwsgi-gunicorn-nginx/787402">Docker how to Django + uwsgi/gunicorn + nginx?</a></li>
+  <li><a href="https://github.com/andrecp/django-tutorial-docker-nginx-postgres">Django tutorial using Docker, Nginx, Gunicorn and PostgreSQL.</a></li>
+  <li><a href="https://github.com/realpython/dockerizing-django">Django Development With Docker Compose and Machine</a></li>
+  <li><a href="http://ruddra.com/2016/08/14/docker-django-nginx-postgres/index.html">Deploy Django, Gunicorn, NGINX, Postgresql using Docker</a></li>
+  <li><a href="https://stackoverflow.com/questions/32180589/docker-how-to-expose-a-socket-over-a-port-for-a-django-application">Docker, how to expose a socket over a port for a Django Application</a></li>
+</ul>
+
+<p>And here is the
+<a href="https://github.com/Pawamoy/docker-nginx-postgres-django-example">repository</a>
+that reflects this tutorial (with a few more things).</p>
+
+<p>Don’t hesitate to share other interesting resources in the comment section!</p>
+
+<h2 id="comments">Comments</h2>
+
+  </div><div id="disqus_thread"><iframe id="dsq-app9987" name="dsq-app9987" allowtransparency="true" scrolling="no" tabindex="0" title="Disqus" style="width: 1px !important; min-width: 100% !important; border: medium none !important; overflow: hidden !important; height: 9925px !important;" src="Docker%20Compose%20with%20NginX,%20Django,%20Gunicorn%20and%20multiple%20Postgres%20databases%20|%20ReadTheBlog-Dateien/a.html" horizontalscrolling="no" verticalscrolling="no" width="100%" frameborder="0"></iframe></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html';
+      this.page.identifier = 'http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://pawamoy.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="http://pawamoy.github.io/2018/02/01/docker-compose-django-postgres-nginx.html" hidden=""></a>
+</article>
+
+        </div>
+      </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">ReadTheBlog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Timothée Mazzucotelli</li><li><a class="u-email" href="mailto:timothee.mazzucotelli@pm.com">timothee.mazzucotelli@pm.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/pawamoy"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">pawamoy</span></a></li><li><a href="http://pawamoy.github.io/feed.xml"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#rss"></use></svg> <span>rss</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Findings, thoughts, tutorials, work. Pieces of my mind!</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</div>
+
+    <script>
+      (function() {
+
+        var postList = document.getElementById('post-list');
+	      var activePost = postList.getElementsByClassName('active')[0];
+
+        var post = document.getElementsByClassName('post-content')[0];
+
+        var headings = [];
+
+        var tag_names = {
+            h1:1,
+            h2:1,
+            h3:1,
+            h4:1,
+            h5:1,
+            h6:1
+        };
+
+        function walk(root) {
+            if (root.nodeType === 1 && root.nodeName !== 'script') {
+                if (tag_names.hasOwnProperty(root.nodeName.toLowerCase())) {
+                    headings.push(root);
+                } else {
+                    for (var i = 0; i < root.childNodes.length; i++) {
+                        walk(root.childNodes[i]);
+                    }
+                }
+            }
+        }
+
+        walk(post);
+
+        if (headings.length > 0) {
+          var ul = document.createElement("ul");
+          ul.classList.add("sidebar-headings")
+          activePost.appendChild(ul);
+
+          for (var i=0, max=headings.length; i < max; i++) {
+            var li = document.createElement("li");
+            li.classList.add("sidebar-" + headings[i].tagName.toLowerCase());
+            var a = document.createElement("a");
+            var aText = document.createTextNode(headings[i].innerText);
+            a.appendChild(aText);
+            a.href = "#" + headings[i].id;
+            li.appendChild(a);
+            ul.appendChild(li);
+          }
+        }
+
+      })();
+    </script>
+
+  
+
+
+<iframe style="display: none;"></iframe></body></html>
